@@ -13,7 +13,7 @@
             <div class="title">
                 <h4>用户{{userInfo && userInfo.username}}</h4>
                 <span>找到1个用户</span>
-                <a href="user-edit.html" class="btn btn-primary new">新增用户</a>
+                <a href="/admin/user-edit" class="btn btn-primary new">新增用户</a>
             </div>
             <!-- /分类标题 -->
             <!-- 内容列表 -->
@@ -29,58 +29,36 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{each users}}
                     <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>超级管理员</td>
-                        <td>正常</td>
+                        <td>{{@$value._id}}</td>
+                        <td>{{$value.username}}</td>
+                        <td>{{$value.email}}</td>
+                        <td>{{$value.role === 'admin' ? '超级管理员' : '普通用户'}}</td>
+                        <td>{{$value.state == 0 ? '启用' : '禁用'}}</td>
                         <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
+                            <a href="/admin/user-edit?id={{@$value._id}}" class="glyphicon glyphicon-edit"></a>
+                            <i class="glyphicon glyphicon-remove delete" data-toggle="modal" data-target=".confirm-modal" data-id="{{@$value._id}}"></i>
                         </td>
                     </tr>
-                    <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>普通用户</td>
-                        <td>禁用</td>
-                        <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>5b9a716cb2d2bf17706bcc0a</td>
-                        <td>wangjian</td>
-                        <td>wjb19891223@163.com</td>
-                        <td>普通用户</td>
-                        <td>启用</td>
-                        <td>
-                            <a href="user-edit.html" class="glyphicon glyphicon-edit"></a>
-                            <i class="glyphicon glyphicon-remove" data-toggle="modal" data-target=".confirm-modal"></i>
-                        </td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
             <!-- /内容列表 -->
             <!-- 分页 -->
             <ul class="pagination">
-                <li>
-                    <a href="#">
-			        <span>&laquo;</span>
-			      </a>
+                <li style="display: <%= page <= 1 ? 'none' : 'inline' %>">
+                    <a href="/admin/user?page=<%= page-1 %>">
+                    <span>&laquo;</span>
+                    </a>
                 </li>
-                <li><a href="#">1</a></li>
-                <li><a href="#">2</a></li>
-                <li><a href="#">3</a></li>
-                <li><a href="#">4</a></li>
-                <li><a href="#">5</a></li>
-                <li>
-                    <a href="#">
-			        <span>&raquo;</span>
-			      </a>
+                <% for(let i = 1; i <= total; i ++) { %>
+                <li><a href="/admin/user?page=<%= i %>"><%= i %></a></li>
+                <% } %>
+                <li style="display: <%= page >= total ? 'none' : 'inline' %>">
+                    <a href="/admin/user?page=<%= page-0+1 %>">
+                    <span>&raquo;</span>
+                    </a>
                 </li>
             </ul>
             <!-- /分页 -->
@@ -90,13 +68,14 @@
     <!-- 删除确认弹出框 -->
     <div class="modal fade confirm-modal">
         <div class="modal-dialog modal-lg">
-            <form class="modal-content">
+            <form class="modal-content" action="/admin/delete" method="GET">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal"><span>&times;</span></button>
                     <h4 class="modal-title">请确认</h4>
                 </div>
                 <div class="modal-body">
                     <p>您确定要删除这个用户吗?</p>
+                    <input type="hidden" name="id" id="deleteUserId"/>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
@@ -105,4 +84,13 @@
             </form>
         </div>
     </div>
+{{/block}}
+{{block 'script'}}
+    <script>
+    $(".delete").on('click', function() {
+        // 获取用户 id
+        let id = $(this).attr('data-id');
+        $('#deleteUserId').val(id);
+    });
+    </script>
 {{/block}}

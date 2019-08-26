@@ -39,6 +39,19 @@ app.use('/admin', require('./route/admin'));
 // 前台入口
 app.use('/home', require('./route/home'));
 
+// 错误处理中间件
+app.use((err, req, res, next) => {
+    const result = JSON.parse(err);
+    let params = [];
+    for(let attr in result) {
+        if(attr !== 'path') {
+            params.push(attr + '=' + result[attr]);
+        }
+    }
+    // res.redirect(`${result.path}?message=${result.message}`);
+    res.redirect(`${result.path}?${params.join('&')}`);
+});
+
 app.listen(3000, () => {
     console.log('服务启动成功');
 });
