@@ -3,7 +3,9 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const session = require('express-session');
-
+const template = require('art-template');
+const dateFormat = require('dateformat');
+template.defaults.imports.dateFormat = dateFormat;
 require('./model/connect');
 
 // extended 为 false，内部将使用 querystring 去处理，为 true 的话将使用第三方模块 qs 去处理

@@ -2,7 +2,7 @@ const {User} = require('../../model/user');
 
 module.exports = async (req, res) => {
     // 用户管理页面
-    // req.app.locals.currentLink = 'user';
+    req.app.locals.currentLink = 'user';
     
     // 接收客户端传过来的当前页参数
     // localhost/admin/user?page=2
