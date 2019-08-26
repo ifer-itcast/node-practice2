@@ -1,2 +1,5 @@
 # node-practice2
-📝2️⃣
+
+## 静态页面
+
+- 登录：http://localhost/admin/login

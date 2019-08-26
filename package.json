@@ -1,0 +1,28 @@
+{
+  "name": "node-practice2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ifer-itcast/node-practice2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ifer-itcast/node-practice2/issues"
+  },
+  "homepage": "https://github.com/ifer-itcast/node-practice2#readme",
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "bcrypt": "^3.0.6",
+    "express": "^4.17.1",
+    "express-art-template": "^1.0.1",
+    "express-session": "^1.16.2",
+    "mongoose": "^5.6.11"
+  }
+}
