@@ -6,6 +6,10 @@ module.exports = (req, res, next) => {
     } else {
         // 访问的是登录页面，放行！
         // 要么就是已经登录了，放行！
-        next();
+        if(req.session.role === 'normal') {
+            return res.redirect('/home');
+        } else {
+            next();
+        }
     }
 }

@@ -1,8 +1,10 @@
 const express = require('express');
-const router = express.Router();
+const home = express.Router();
 
-router.get('/', (req, res) => {
-    res.send('home');
-});
+home.get('/', require('./home/index'));
+home.get('/article', require('./home/article'));
 
-module.exports = router;
+// 评论功能
+home.post('/comment', require('./home/comment'));
+
+module.exports = home;

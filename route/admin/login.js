@@ -17,13 +17,17 @@ module.exports = async (req, res) => {
         if(isValid) {
             // 存储用户名到请求对象中
             req.session.username = user.username;
+            req.session.role = user.role;
             // res.send('登录成功');
-            
+
             // 把用户信息暴露到全局，各个模板都能取到 userInfo
             req.app.locals.userInfo = user;
-            
-            // 重定向，代替 res.writeHead(301, {Location: '/admin/user'})
-            res.redirect('/admin/user');
+            if(user.role === 'admin') {
+                // 重定向，代替 res.writeHead(301, {Location: '/admin/user'})
+                res.redirect('/admin/user');
+            } else {
+                res.redirect('/home');
+            }
         } else {
             res.status(400).render('admin/error', {
                 msg: '邮箱地址或密码错误'
