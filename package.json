@@ -19,7 +19,7 @@
   "homepage": "https://github.com/ifer-itcast/node-practice2#readme",
   "dependencies": {
     "art-template": "^4.13.2",
-    "bcrypt": "^3.0.6",
+    "bcrypt": "^5.0.0",
     "config": "^3.2.2",
     "dateformat": "^3.0.3",
     "express": "^4.17.1",
